@@ -1,0 +1,219 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://coin/Coin.tscn" type="PackedScene" id=1]
+[ext_resource path="res://UI/topbar.gd" type="Script" id=2]
+[ext_resource path="res://UI/bottle.png" type="Texture" id=3]
+[ext_resource path="res://UI/bottle_bar.png" type="Texture" id=4]
+[ext_resource path="res://player/stop_watch.gd" type="Script" id=5]
+[ext_resource path="res://UI/skull.png" type="Texture" id=6]
+[ext_resource path="res://player/syringe_sprite_100.png" type="Texture" id=7]
+
+[node name="TopBar" type="Control"]
+anchor_right = 1.0
+margin_bottom = 86.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = 81.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 296.0
+margin_bottom = 61.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+margin_right = 296.0
+margin_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_right = 80.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 80, 40 )
+
+[node name="bg" type="Panel" parent="HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect"]
+margin_right = 40.0
+margin_bottom = 23.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="coin_label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect/bg"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -14.5
+margin_top = -14.5
+margin_right = 14.5
+margin_bottom = 14.5
+text = "--"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Coin" parent="HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect" instance=ExtResource( 1 )]
+position = Vector2( 57, 12 )
+scale = Vector2( 3.68, 3.68 )
+
+[node name="NinePatchRect4" type="NinePatchRect" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 84.0
+margin_right = 194.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 110, 40 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bg" type="Panel" parent="HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect4"]
+margin_right = 40.0
+margin_bottom = 23.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cas_label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect4/bg"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -14.5
+margin_top = -14.5
+margin_right = 14.5
+margin_bottom = 14.5
+text = "--"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect4"]
+position = Vector2( 53, 11 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 6 )
+
+[node name="Container" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+margin_top = 44.0
+margin_right = 296.0
+margin_bottom = 58.0
+size_flags_horizontal = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer/VBoxContainer/Container"]
+margin_right = 100.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 100, 0 )
+step = 1.0
+
+[node name="Sprite" type="Sprite" parent="HBoxContainer/VBoxContainer/Container"]
+position = Vector2( 128, 9 )
+scale = Vector2( 0.686274, 1.4 )
+texture = ExtResource( 7 )
+flip_h = true
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="HBoxContainer"]
+margin_left = 300.0
+margin_right = 596.0
+margin_bottom = 61.0
+size_flags_horizontal = 3
+
+[node name="bg" type="Panel" parent="HBoxContainer/NinePatchRect3"]
+margin_left = 144.0
+margin_top = 1.0
+margin_right = 201.0
+margin_bottom = 22.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StopWatch" type="Label" parent="HBoxContainer/NinePatchRect3/bg"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -9.5
+margin_top = -7.0
+margin_right = 9.5
+margin_bottom = 7.0
+text = "--"
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HBoxContainer/NinePatchRect3"]
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 133.0
+margin_bottom = 19.0
+text = "Publication deadline"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="HBoxContainer"]
+margin_left = 600.0
+margin_right = 760.0
+margin_bottom = 61.0
+rect_min_size = Vector2( 160, 0 )
+
+[node name="bg" type="Panel" parent="HBoxContainer/NinePatchRect2"]
+margin_left = 23.0
+margin_right = 58.0
+margin_bottom = 23.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="jab_label" type="Label" parent="HBoxContainer/NinePatchRect2/bg"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -14.5
+margin_top = -14.5
+margin_right = 14.5
+margin_bottom = 14.5
+text = "--"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/NinePatchRect2"]
+margin_left = 66.0
+margin_top = -9.0
+margin_right = 145.0
+margin_bottom = 31.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureProgress" type="TextureProgress" parent="HBoxContainer/NinePatchRect2/NinePatchRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 12.0
+margin_top = 7.0
+margin_right = 33.0
+margin_bottom = 2.0
+rect_scale = Vector2( 0.634601, 0.743999 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+value = 20.0
+texture_progress = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

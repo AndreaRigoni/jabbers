@@ -1,0 +1,134 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://patient/kid/kid_sprite2.png" type="Texture" id=1]
+[ext_resource path="res://patient/kid/patient_kid.gd" type="Script" id=2]
+[ext_resource path="res://patient/dollar.png" type="Texture" id=3]
+[ext_resource path="res://audio/sound_hit.wav" type="AudioStream" id=4]
+[ext_resource path="res://audio/sound_explode.wav" type="AudioStream" id=5]
+
+[sub_resource type="PhysicsMaterial" id=1]
+
+[sub_resource type="Animation" id=11]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 29 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 5.25
+loop = true
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50 ]
+}
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 13.0
+
+[sub_resource type="CapsuleShape2D" id=10]
+radius = 7.0
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0.5, 1 )
+colors = PoolColorArray( 1, 1, 1, 0.501961, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+emission_shape = 1
+emission_sphere_radius = 8.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 120.0
+initial_velocity_random = 0.5
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle_random = 1.0
+scale_random = 1.0
+color_ramp = SubResource( 7 )
+
+[node name="PatientKid" type="RigidBody2D"]
+mode = 2
+physics_material_override = SubResource( 1 )
+contacts_reported = 4
+script = ExtResource( 2 )
+
+[node name="Enabler" type="VisibilityEnabler2D" parent="."]
+position = Vector2( -2.17178, -11.5919 )
+scale = Vector2( 12.7828, 7.14081 )
+pause_particles = false
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -12, -19 )
+texture = ExtResource( 1 )
+hframes = 29
+vframes = 3
+frame = 29
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 4.0
+anims/RESET = SubResource( 11 )
+anims/walk = SubResource( 4 )
+
+[node name="Shape1" type="CollisionShape2D" parent="."]
+position = Vector2( -7, -39 )
+shape = SubResource( 5 )
+
+[node name="Shape2" type="CollisionShape2D" parent="."]
+position = Vector2( 3, 4 )
+shape = SubResource( 5 )
+
+[node name="Shape3" type="CollisionShape2D" parent="."]
+position = Vector2( -11, 4 )
+shape = SubResource( 5 )
+
+[node name="Shape4" type="CollisionShape2D" parent="."]
+position = Vector2( -2, -16 )
+shape = SubResource( 10 )
+
+[node name="RaycastLeft" type="RayCast2D" parent="."]
+position = Vector2( -19, -4 )
+enabled = true
+cast_to = Vector2( 0, 22.5 )
+
+[node name="RaycastRight" type="RayCast2D" parent="."]
+position = Vector2( 9, -4 )
+enabled = true
+cast_to = Vector2( 0, 22.5 )
+
+[node name="Explosion" type="Particles2D" parent="."]
+modulate = Color( 1, 1, 1, 0.685843 )
+emitting = false
+amount = 6
+lifetime = 0.8
+one_shot = true
+speed_scale = 1.2
+explosiveness = 0.76
+process_material = SubResource( 8 )
+texture = ExtResource( 3 )
+
+[node name="SoundHit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+
+[node name="SoundExplode" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )

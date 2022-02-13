@@ -1,0 +1,426 @@
+[gd_scene load_steps=33 format=2]
+
+[ext_resource path="res://player/player2.gd" type="Script" id=1]
+[ext_resource path="res://player/doctor_spritesheet.png" type="Texture" id=2]
+[ext_resource path="res://player/bullet.png" type="Texture" id=3]
+[ext_resource path="res://player/osb_left.png" type="Texture" id=4]
+[ext_resource path="res://player/osb_right.png" type="Texture" id=5]
+[ext_resource path="res://player/osb_jump.png" type="Texture" id=6]
+[ext_resource path="res://player/nes_button.png" type="Texture" id=7]
+[ext_resource path="res://audio/sound_shoot.wav" type="AudioStream" id=8]
+[ext_resource path="res://audio/sound_jump.wav" type="AudioStream" id=9]
+[ext_resource path="res://UI/TopBar.tscn" type="PackedScene" id=10]
+[ext_resource path="res://player/Alcohol.tscn" type="PackedScene" id=11]
+
+[sub_resource type="PhysicsMaterial" id=1]
+friction = 0.0
+
+[sub_resource type="Gradient" id=2]
+colors = PoolColorArray( 0.708353, 0.72498, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+flag_disable_z = true
+spread = 65.84
+gravity = Vector3( 0, -15, 0 )
+initial_velocity = 10.14
+angular_velocity = 200.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 100.0
+color_ramp = SubResource( 3 )
+
+[sub_resource type="Animation" id=16]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 77 ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.01
+loop = true
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 68 ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "die"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8, 1.2, 1.6, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4, 5, 6 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 6.8 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_die"
+} ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 4.5
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3, 4.25 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 58, 48, 49 ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.5
+loop = true
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 26 ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 20.0
+loop = true
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 11.25, 12.5, 13.75, 15, 16, 18, 19.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 22, 31, 32, 33, 34, 35, 36, 37 ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "idle_infected"
+length = 11.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.2, 2.4, 3.6, 4.9, 6.2, 7.4, 8.6, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 23, 24, 25, 26, 27, 28, 29, 30, 31 ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 0.5
+loop = true
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 1,
+"values": [  ]
+}
+
+[sub_resource type="Animation" id=10]
+length = 2.5
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.25, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 55, 56, 57 ]
+}
+
+[sub_resource type="Animation" id=11]
+length = 0.5
+loop = true
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 26 ]
+}
+
+[sub_resource type="Animation" id=12]
+length = 2.0
+loop = true
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 66, 67, 68, 69, 70, 71, 72, 73 ]
+}
+
+[sub_resource type="Animation" id=13]
+length = 2.0
+loop = true
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 77, 78, 79, 80, 81, 82, 83, 84 ]
+}
+
+[sub_resource type="Animation" id=14]
+length = 1.25
+loop = true
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 1,
+"values": [  ]
+}
+
+[sub_resource type="RayShape2D" id=15]
+custom_solver_bias = 0.5
+length = 12.0
+
+[sub_resource type="Gradient" id=19]
+offsets = PoolRealArray( 0.5, 1 )
+colors = PoolColorArray( 1, 1, 1, 0.501961, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=20]
+gradient = SubResource( 19 )
+
+[sub_resource type="ParticlesMaterial" id=21]
+emission_shape = 1
+emission_sphere_radius = 8.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 120.0
+initial_velocity_random = 0.5
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle_random = 1.0
+scale_random = 1.0
+color_ramp = SubResource( 20 )
+
+[node name="Player2" type="RigidBody2D"]
+mode = 2
+mass = 1.5
+physics_material_override = SubResource( 1 )
+custom_integrator = true
+contacts_reported = 3
+contact_monitor = true
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -1.19209e-07 )
+scale = Vector2( -0.787262, 0.718209 )
+texture = ExtResource( 2 )
+hframes = 11
+vframes = 8
+frame = 77
+
+[node name="Smoke" type="Particles2D" parent="Sprite"]
+visible = false
+self_modulate = Color( 1, 1, 1, 0.26702 )
+position = Vector2( 10, 1.5 )
+rotation = -1.45648
+emitting = false
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+local_coords = false
+process_material = SubResource( 4 )
+texture = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 9.83
+anims/RESET = SubResource( 16 )
+anims/crouch = SubResource( 5 )
+anims/die = SubResource( 17 )
+anims/falling = SubResource( 6 )
+anims/falling_weapon = SubResource( 7 )
+anims/idle = SubResource( 8 )
+anims/idle_infected = SubResource( 18 )
+anims/idle_weapon = SubResource( 9 )
+anims/jumping = SubResource( 10 )
+anims/jumping_weapon = SubResource( 11 )
+anims/run = SubResource( 12 )
+anims/run_weapon = SubResource( 13 )
+anims/standing_weapon_ready = SubResource( 14 )
+
+[node name="Camera" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.7, 0.7 )
+limit_left = 0
+limit_top = 0
+
+[node name="BulletShoot" type="Position2D" parent="."]
+position = Vector2( 0, -1 )
+
+[node name="AlcoholShoot" type="Position2D" parent="."]
+position = Vector2( 11, 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 15 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( -2, -4 )
+scale = Vector2( 1.33097, 1.35145 )
+polygon = PoolVector2Array( -6.76198, 0.739948, -6.01065, 19.2386, 1.50266, 19.9786, 10.5186, 16.2789, 12.7726, 0.739948, 3.00532, -7.39948 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="TopBar" parent="UI" instance=ExtResource( 10 )]
+margin_bottom = 90.0
+
+[node name="Left" type="TouchScreenButton" parent="UI"]
+position = Vector2( 28, 368 )
+scale = Vector2( 0.567715, 0.591753 )
+normal = ExtResource( 4 )
+passby_press = true
+action = "move_left"
+visibility_mode = 1
+
+[node name="Right" type="TouchScreenButton" parent="UI"]
+position = Vector2( 137, 367 )
+scale = Vector2( 0.587096, 0.588214 )
+normal = ExtResource( 5 )
+passby_press = true
+action = "move_right"
+visibility_mode = 1
+
+[node name="Jump" type="TouchScreenButton" parent="UI"]
+position = Vector2( 668, 359 )
+scale = Vector2( 0.615429, 0.560121 )
+normal = ExtResource( 6 )
+action = "jump"
+visibility_mode = 1
+
+[node name="Fire" type="TouchScreenButton" parent="UI"]
+position = Vector2( 678, 276 )
+scale = Vector2( 0.244651, 0.239907 )
+normal = ExtResource( 7 )
+action = "shoot"
+visibility_mode = 1
+
+[node name="Fire2" type="TouchScreenButton" parent="UI"]
+position = Vector2( 678, 181 )
+scale = Vector2( 0.244651, 0.239907 )
+normal = ExtResource( 7 )
+action = "shoot2"
+visibility_mode = 1
+
+[node name="SoundShoot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 8 )
+
+[node name="SoundJump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 9 )
+
+[node name="Explosion" type="Particles2D" parent="."]
+modulate = Color( 1, 0.396078, 0.580392, 0.392157 )
+show_behind_parent = true
+scale = Vector2( 1, 0.7 )
+emitting = false
+amount = 40
+lifetime = 0.5
+speed_scale = 0.21
+visibility_rect = Rect2( -100, -100, 200, 50 )
+process_material = SubResource( 21 )
+texture = ExtResource( 3 )
+
+[node name="Alcohol" parent="." instance=ExtResource( 11 )]
+visible = false
+position = Vector2( 11, 12 )
+
+[connection signal="body_entered" from="." to="." method="_on_Player2_body_entered"]
+[connection signal="coin_collected" from="." to="UI/TopBar" method="_on_Player2_coin_collected"]
+[connection signal="jab_collected" from="." to="UI/TopBar" method="_on_Player2_jab_collected"]
+[connection signal="patient_killed" from="." to="UI/TopBar" method="_on_Player2_patient_killed"]
+[connection signal="shot_bullet" from="." to="UI/TopBar" method="_on_Player2_shot_bullet"]

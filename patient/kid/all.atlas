@@ -1,0 +1,9 @@
+all.png
+size:1537,225
+repeat:none
+jump
+bounds:0,150,1537,75
+turn
+bounds:0,0,1060,75
+walk
+bounds:0,75,1166,75
